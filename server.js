@@ -1,9 +1,11 @@
 const express = require("express")
 const mongoose = require("mongoose")
 const ShortUrl = require("./models/shortUrl")
+const dotenv = require("dotenv")
 const app = express();
+dotenv.config();
 
-mongoose.connect("mongodb://127.0.0.1:27017/urlShortener", {
+mongoose.connect(process.env.CONNECTION_STRING, {
     useNewUrlParser: true, useUnifiedTopology: true
 })
 app.set("view engine", "ejs")
@@ -29,4 +31,4 @@ app.get("/:shortUrl", async (req, res) =>{
     res.redirect(shortUrl.fullUrl)
 })
 
-app.listen(process.env.PORT || 5000);
+app.listen(process.env.PORT);
